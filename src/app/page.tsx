@@ -30,7 +30,7 @@ export default function Home() {
   // console.log(products)
   if (billionnaires)
     return (
-      <main className="flex min-h-screen flex-col items-center justify-between p-16">
+      <main className="flex min-h-screen flex-col items-center justify-between p-10">
         <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
           <h1>Billionnaire Shopping List</h1>
           <h2 className="my-10">Choose Your Billionnaire</h2>
@@ -40,17 +40,17 @@ export default function Home() {
               return (
                 <div
                   id={i}
-                  className="flex"
+                  className="flex p-1 my-2 bg-red-100"
                   ref={itemWithIdRef}
                   key={i}
                   onClick={chooseBillionnaire}
                 >
                   <img className="w-20" src={elm.imagePath} alt={elm.name} />
-                  <div className="bg-red-100">
+                  <div className="">
                     <h3 className="text-xs">Name:</h3>
-                    <h4>{elm.name}</h4>
-                    <h3 className="text-xs">NetWorth:</h3>
-                    <h4>{elm.netWorth} SEK</h4>
+                    <p className="mb-2">{elm.name}</p>
+                    <h3 className="text-xs">Net Worth:</h3>
+                    <p>{elm.netWorth} SEK</p>
                   </div>
                 </div>
               );
