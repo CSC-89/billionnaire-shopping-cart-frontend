@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { SyntheticEvent, useEffect, useState } from "react";
 import useSWR from "swr";
 
 const url =
@@ -30,20 +30,29 @@ export default function Home() {
   );
   const { data: products } = useSWR(`${url}Products`, productsFetcher);
 
-  console.log(billionnaires);
-  console.log(products);
+  const chooseBillionnaire = (evt: SyntheticEvent) => {
+    console.log(evt.target);
+  }
+
   // console.log(products)
   if (billionnaires && products)
     return (
-      <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <main className="flex min-h-screen flex-col items-center justify-between p-16">
         <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-          <h1>Home</h1>
+          <h1>Billionnaire Shopping List</h1>
+          <h2 className="my-10">Choose Your Billionnaire</h2>
+
           {!billionnaire &&
-            billionnaires.map((elm: Billionnaire, i: number) => {
+            billionnaires.map((elm: Billionnaire, i: string) => {
               return (
-                <div key={i}>
-                  <h2>{elm.name}</h2>
-                  <h2>{elm.netWorth}</h2>
+                <div className="flex" key={i} onClick={chooseBillionnaire}>
+                  <img className="w-20" src={elm.imagePath} alt={elm.name} />
+                  <div className="bg-red-100">
+                    <h3 className="text-xs" >Name:</h3>
+                    <h4>{elm.name}</h4>
+                    <h3 className="text-xs">NetWorth:</h3>
+                    <h4>{elm.netWorth}</h4>
+                  </div>
                 </div>
               );
             })}
