@@ -1,9 +1,18 @@
+'use client'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import useSWR from 'swr';
 
-export default function Home() {
+const url= "https://billionnaire-shopping-cart-backend-e3uzzxqbva-uc.a.run.app"
 
+export default function Home() {
+  const fetcher =(args: string) => fetch(args).then(response =>response.json())
+
+  const { data, error, isLoading } = useSWR(url, fetcher )
+  
+  if(error) return <div>Failed to Load</div>
+  if(isLoading) return <div>loading...</div>
+  console.log(data)
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
