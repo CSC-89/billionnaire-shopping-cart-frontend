@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { SyntheticEvent, useEffect, useState } from "react";
+import { SyntheticEvent, useEffect, useRef, useState } from "react";
 import useSWR from "swr";
 
 const url =
@@ -18,6 +18,7 @@ type Product = {
 };
 
 export default function Home() {
+  const itemWithIdRef = useRef<HTMLDivElement>(null);
   const billionnairesFetcher = (args: string) =>
     fetch(args).then((response) => response.json());
   const productsFetcher = (args: string) =>
@@ -31,7 +32,12 @@ export default function Home() {
   const { data: products } = useSWR(`${url}Products`, productsFetcher);
 
   const chooseBillionnaire = (evt: SyntheticEvent) => {
-    console.log(evt.target);
+    if(itemWithIdRef.current == null){
+      return;
+    }
+
+    const element = itemWithIdRef.current.id;
+    setBillionnaire(billionnaires[0])
   }
 
   // console.log(products)
@@ -45,7 +51,7 @@ export default function Home() {
           {!billionnaire &&
             billionnaires.map((elm: Billionnaire, i: string) => {
               return (
-                <div className="flex" key={i} onClick={chooseBillionnaire}>
+                <div id={i} className="flex" ref={itemWithIdRef} key={i} onClick={chooseBillionnaire}>
                   <img className="w-20" src={elm.imagePath} alt={elm.name} />
                   <div className="bg-red-100">
                     <h3 className="text-xs" >Name:</h3>
