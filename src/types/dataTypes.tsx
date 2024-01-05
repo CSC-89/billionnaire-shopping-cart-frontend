@@ -9,3 +9,9 @@ export type Product = {
     price: number;
     imagePath: string;
   };
+
+export type CartItem = {
+  id: number;
+  item: Product;
+  qty: number
+}
