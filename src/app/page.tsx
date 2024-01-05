@@ -1,4 +1,5 @@
 "use client";
+import Shop from "@/components/Shop";
 import { Billionnaire, Product } from "@/types/dataTypes";
 import Image from "next/image";
 import { SyntheticEvent, useEffect, useRef, useState } from "react";
@@ -11,27 +12,23 @@ export default function Home() {
   const itemWithIdRef = useRef<HTMLDivElement>(null);
   const billionnairesFetcher = (args: string) =>
     fetch(args).then((response) => response.json());
-  const productsFetcher = (args: string) =>
-    fetch(args).then((response) => response.json());
 
   const [billionnaire, setBillionnaire] = useState<Billionnaire | null>(null);
   const { data: billionnaires } = useSWR(
     `${url}Billionnaires`,
     billionnairesFetcher
   );
-  const { data: products } = useSWR(`${url}Products`, productsFetcher);
-
   const chooseBillionnaire = (evt: SyntheticEvent) => {
-    if(itemWithIdRef.current == null){
+    if (itemWithIdRef.current == null) {
       return;
     }
 
     const element = itemWithIdRef.current.id;
-    setBillionnaire(billionnaires[0])
-  }
+    setBillionnaire(billionnaires[0]);
+  };
 
   // console.log(products)
-  if (billionnaires && products)
+  if (billionnaires)
     return (
       <main className="flex min-h-screen flex-col items-center justify-between p-16">
         <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
@@ -41,10 +38,16 @@ export default function Home() {
           {!billionnaire &&
             billionnaires.map((elm: Billionnaire, i: string) => {
               return (
-                <div id={i} className="flex" ref={itemWithIdRef} key={i} onClick={chooseBillionnaire}>
+                <div
+                  id={i}
+                  className="flex"
+                  ref={itemWithIdRef}
+                  key={i}
+                  onClick={chooseBillionnaire}
+                >
                   <img className="w-20" src={elm.imagePath} alt={elm.name} />
                   <div className="bg-red-100">
-                    <h3 className="text-xs" >Name:</h3>
+                    <h3 className="text-xs">Name:</h3>
                     <h4>{elm.name}</h4>
                     <h3 className="text-xs">NetWorth:</h3>
                     <h4>{elm.netWorth}</h4>
@@ -53,15 +56,7 @@ export default function Home() {
               );
             })}
 
-          {billionnaire &&
-            products.map((elm: Product, i: number) => {
-              return (
-                <div key={i}>
-                  <h2>{elm.name}</h2>
-                  <h2>{elm.price}</h2>
-                </div>
-              );
-            })}
+          {billionnaire && <Shop billionnaire={billionnaire} />}
         </div>
       </main>
     );
