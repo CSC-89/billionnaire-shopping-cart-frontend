@@ -24,7 +24,7 @@ export default function Home() {
     }
 
     const element = itemWithIdRef.current.id;
-    setBillionnaire(billionnaires[0]);
+    setBillionnaire(billionnaires[element]);
   };
 
   // console.log(products)
@@ -50,7 +50,7 @@ export default function Home() {
                     <h3 className="text-xs">Name:</h3>
                     <h4>{elm.name}</h4>
                     <h3 className="text-xs">NetWorth:</h3>
-                    <h4>{elm.netWorth}</h4>
+                    <h4>{elm.netWorth} SEK</h4>
                   </div>
                 </div>
               );
