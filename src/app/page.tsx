@@ -1,21 +1,11 @@
 "use client";
+import { Billionnaire, Product } from "@/types/dataTypes";
 import Image from "next/image";
 import { SyntheticEvent, useEffect, useRef, useState } from "react";
 import useSWR from "swr";
 
 const url =
   "https://billionnaire-shopping-cart-backend-e3uzzxqbva-uc.a.run.app/api/";
-type Billionnaire = {
-  name: string;
-  netWorth: number;
-  imagePath: string;
-};
-
-type Product = {
-  name: string;
-  price: number;
-  imagePath: string;
-};
 
 export default function Home() {
   const itemWithIdRef = useRef<HTMLDivElement>(null);
