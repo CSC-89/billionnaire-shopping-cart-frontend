@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import useSWR from 'swr';
 
-const url= "https://billionnaire-shopping-cart-backend-e3uzzxqbva-uc.a.run.app"
+const url= "https://billionnaire-shopping-cart-backend-e3uzzxqbva-uc.a.run.app/WeatherForecast"
 
 export default function Home() {
   const fetcher =(args: string) => fetch(args).then(response =>response.json())
